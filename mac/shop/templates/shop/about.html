@@ -1,0 +1,118 @@
+{% extends 'shop/basic.html' %}
+{% block title%}  About Us {% endblock %}
+{% block css %}
+    body{
+        text-align: justify;
+        font-family: 'Roboto Slab', serif;
+    }
+    h1{
+        font-family: 'Niconne', cursive;
+    }
+    h3{
+        font-weight:bolder;
+    }
+{% endblock css %}
+{% block body %}
+
+<body>
+
+    <main>
+        <div class="container py-4">
+            <header class="pb-3 mb-4 border-bottom">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                    <h1>About Us</h1>
+                </a>
+              </header>
+            <div class="p-5 mb-4 bg-light rounded-3">
+                <div class="container-fluid py-5">
+                    <h1 class="display-5 fw-bold">Fashion Steps</h1>
+                    <p class="col-md-8 fs-4">The Fashion Steps Corporation is a multinational footwear, apparel and fashion accessories manufacturer and retailer of Moravian (Czech) origin, headquartered in Lausanne, Switzerland.
+
+                        The corporation is one of the world's leading shoemakers by volume with 150 million pairs of shoes sold annually.[5] It has a retail presence of over 5,300 shops in more than 70 countries across five continents and 21 production facilities in 18 countries. Bata is an employer to over 32,000 people globally.
+                        
+                        A family-owned business for over 125 years, the company is organized into three business units: Bata, Bata Industrials (safety shoes) and AW Lab (sports style). Bata is a portfolio company with more than 20 brands and labels, such as Bata, North Star, Power, Bubblegummers, Weinbrenner, Sandak, and Toughees.</p>
+                    <button class="btn btn-outline-secondary btn-lg" type="button">Read More>></button>
+                </div>
+            </div>
+
+            <div class="row align-items-md-stretch">
+                <div class="col-md-4">
+                    <div class="h-100 p-5 bg-light border rounded-3">
+                        <h3>Company History</h3>
+                        <p>In 1932, at the age of 56, Tomáš Baťa died in a plane crash during take off under bad weather conditions at Zlín Airport[1] Control of the company was passed to his half-brother, Jan Antonín Baťa, and his son, Thomas John Baťa, who would go on to lead the company for much of the twentieth century guided by the founder's moral testament: the Baťa Shoe company was to be treated not as a source of private wealth, but as a public trust, a means of improving living standards within the community and providing customers with good value for their money. Promise was made to pursue the entrepreneurial, social and humanitarian ideals of their father..</p>
+                        <button class="btn btn-outline-secondary" type="button">Read More>></button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="h-100 p-5 bg-light border rounded-3">
+                        <h3>Facilities</h3>
+                        <p>Bata India is the largest retailer and leading manufacturer of footwear in India and is a part of the Bata Shoe Organization.
+
+                            Incorporated as Bata Shoe Company Private Limited in 1931, the company was set up initially as a small operation in Konnagar (near Calcutta) in 1932. In January 1934, the foundation stone for the first building of Bata’s operation - now called the Bata. In the years that followed, the overall site was doubled in area. This township is popularly known as Batanagar. It was also the first manufacturing facility in the Indian shoe industry to receive the ISO: 9001 certification.
+                            
+                            The Company went public in 1973 when it changed its name to Bata India Limited. Today, Bata India has established itself as India’s largest footwear retailer. Its retail network of over 1375 stores gives it a reach / coverage that no other footwear company can match.
+                            
+
+                        <button class="btn btn-outline-secondary" type="button">Read More>></button>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="h-100 p-5 bg-light border rounded-3">
+                        <h3>Our Staff</h3>
+                        <p>The Bata Group is a family-owned business, making it possible to provide customers around the world with the best shoes at the best prices, backed by unparalleled service, for over 125 years.
+
+                            We live the Bata way by improving the life of each community in which we operate. This means supporting our consumers, teams and the community itself, as well as providing opportunities for personal and professional growth.Our culture is rooted in what Bata stands for. Our company’s success has been built through the values we believe in. Every achievement, every accomplishment, every step forward was powered by the same engine: our core values.</p>
+                        <button class="btn btn-outline-secondary" type="button">Read More>></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+
+</body>
+{% endblock %}
+{% block js %}
+<script>
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
+var sum = 0;
+var totalPrice = 0;
+if ($.isEmptyObject(cart)) {
+    // If object is empty
+    mystr = "<p>Your cart is empty, please add some items before checking out ! </p>"
+    $('#items').append(mystr);
+}
+
+for (item in cart) {
+
+    let name = cart[item][1];
+    let qty = cart[item][0];
+    let ItemPrice = cart[item][2];
+    sum = sum + qty;
+    totalPrice=totalPrice + qty * ItemPrice;
+    mystr = `        <li class="list-group-item d-flex justify-content-between align-items-center">
+                   ${name}
+                    <span class="badge badge-success badge-pill">${qty}</span>
+                </li>`
+    $('#items').append(mystr);
+}
+console.log(cart);
+document.getElementById('cart').innerHTML = sum;
+document.getElementById('totalPrice').innerHTML = totalPrice;
+$('#itemsJson').val(JSON.stringify(cart));
+{% if  thank %}
+alert("Thank For Ordering!!!")
+localStorage.clear();
+document.location="/shop";
+{% endif %}
+$('#amount').val($('#totalPrice').html())
+</script>
+{%endblock%}
+
